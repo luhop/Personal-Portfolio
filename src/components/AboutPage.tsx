@@ -1,117 +1,115 @@
 import { User, Target, Lightbulb, Users } from 'lucide-react';
-import { Card, CardContent } from './ui/card';
 import { useLanguage } from '../contexts/LanguageContext';
+import { SplitWords } from './fx/SplitWords';
+import { FadeIn } from './fx/FadeIn';
 
 export function AboutPage() {
   const { t } = useLanguage();
-  
+
   const highlights = [
     {
-      icon: <User className="h-6 w-6" />,
+      icon: <User className="h-5 w-5" />,
       titleKey: "about.highlight1.title",
       descriptionKey: "about.highlight1.description"
     },
     {
-      icon: <Lightbulb className="h-6 w-6" />,
+      icon: <Lightbulb className="h-5 w-5" />,
       titleKey: "about.highlight2.title",
       descriptionKey: "about.highlight2.description"
     },
     {
-      icon: <Target className="h-6 w-6" />,
+      icon: <Target className="h-5 w-5" />,
       titleKey: "about.highlight3.title",
       descriptionKey: "about.highlight3.description"
     },
     {
-      icon: <Users className="h-6 w-6" />,
+      icon: <Users className="h-5 w-5" />,
       titleKey: "about.highlight4.title",
       descriptionKey: "about.highlight4.description"
     }
   ];
 
   return (
-    <main className="pt-20 pb-20 md:pb-20 px-6">
-      <div className="max-w-4xl mx-auto">
+    <main className="pt-32 pb-24 px-6">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6">{t('about.header.title')}</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            {t('about.header.subtitle')}
-          </p>
+        <div className="mb-20">
+          <SplitWords
+            as="h1"
+            className="font-display text-5xl sm:text-6xl lg:text-8xl tracking-tight mb-8"
+            delay={0.2}
+            stagger={0.1}
+          >
+            {t('about.header.title')}
+          </SplitWords>
+          <FadeIn trigger="mount" delay={0.5} y={24}>
+            <p className="text-xl lg:text-2xl text-muted-foreground max-w-3xl leading-relaxed font-display">
+              {t('about.header.subtitle')}
+            </p>
+          </FadeIn>
         </div>
 
         {/* Main Content */}
-        <div className="space-y-16">
+        <div className="space-y-24">
           {/* Bio Section */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-6">{t('about.approach.title')}</h2>
-            <div className="prose prose-lg max-w-none text-muted-foreground space-y-6">
-              <p>
-                {t('about.approach.p1')}
-              </p>
-              
-              <p>
-                {t('about.approach.p2')}
-              </p>
-              
-              <p>
-                {t('about.approach.p3')}
-              </p>
+          <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <FadeIn>
+              <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+                {t('about.approach.title')}
+              </h2>
+            </FadeIn>
+            <div className="lg:col-span-2 space-y-6 text-muted-foreground text-lg leading-relaxed">
+              <FadeIn delay={0.1}><p>{t('about.approach.p1')}</p></FadeIn>
+              <FadeIn delay={0.15}><p>{t('about.approach.p2')}</p></FadeIn>
+              <FadeIn delay={0.2}><p>{t('about.approach.p3')}</p></FadeIn>
             </div>
           </section>
 
           {/* What Sets Me Apart */}
           <section>
-            <h2 className="text-2xl font-semibold mb-8">{t('about.highlights.title')}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FadeIn>
+              <h2 className="font-display text-3xl lg:text-5xl mb-12">{t('about.highlights.title')}</h2>
+            </FadeIn>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/60 rounded-2xl overflow-hidden border border-border/60">
               {highlights.map((highlight, index) => (
-                <Card key={index} className="border border-border/50">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="text-primary mt-1">
-                        {highlight.icon}
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-2">{t(highlight.titleKey)}</h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {t(highlight.descriptionKey)}
-                        </p>
-                      </div>
+                <FadeIn key={index} delay={index * 0.08} className="bg-background">
+                  <div className="p-8 lg:p-10 h-full group hover:bg-muted/30 transition-colors duration-500">
+                    <div className="text-primary mb-5">
+                      {highlight.icon}
                     </div>
-                  </CardContent>
-                </Card>
+                    <h3 className="font-display text-2xl mb-3">{t(highlight.titleKey)}</h3>
+                    <p className="text-muted-foreground leading-relaxed text-sm lg:text-base">
+                      {t(highlight.descriptionKey)}
+                    </p>
+                  </div>
+                </FadeIn>
               ))}
             </div>
           </section>
 
-          {/* Project Management Mindset */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-6">{t('about.pmMindset.title')}</h2>
-            <div className="bg-muted/30 rounded-lg p-8">
-              <blockquote className="text-lg italic text-center max-w-3xl mx-auto leading-relaxed">
-                "{t('about.pmMindset.quote')}"
-              </blockquote>
-            </div>
-          </section>
+          {/* Philosophy quotes */}
+          <section className="space-y-12">
+            <FadeIn>
+              <figure className="border-l-2 border-primary pl-8 lg:pl-12 py-2">
+                <blockquote className="font-display text-2xl lg:text-4xl leading-snug">
+                  "{t('about.pmMindset.quote')}"
+                </blockquote>
+                <figcaption className="mt-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {t('about.pmMindset.title')}
+                </figcaption>
+              </figure>
+            </FadeIn>
 
-          {/* Design Philosophy */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-6">{t('about.philosophy.title')}</h2>
-            <div className="bg-muted/30 rounded-lg p-8">
-              <blockquote className="text-lg italic text-center max-w-3xl mx-auto leading-relaxed">
-                "{t('about.philosophy.quote')}"
-              </blockquote>
-            </div>
-          </section>
-
-          {/* Call to Action */}
-          <section className="text-center pt-8">
-            <h2 className="text-2xl font-semibold mb-4">{t('about.cta.title')}</h2>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              {t('about.cta.description')}
-            </p>
-            <a href="mailto:lukas@hoppenberg.de" className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors">
-              {t('about.cta.button')}
-            </a>
+            <FadeIn>
+              <figure className="border-l-2 border-border pl-8 lg:pl-12 py-2">
+                <blockquote className="font-display italic text-2xl lg:text-4xl leading-snug text-muted-foreground">
+                  "{t('about.philosophy.quote')}"
+                </blockquote>
+                <figcaption className="mt-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {t('about.philosophy.title')}
+                </figcaption>
+              </figure>
+            </FadeIn>
           </section>
         </div>
       </div>

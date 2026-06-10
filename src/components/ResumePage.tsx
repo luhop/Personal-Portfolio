@@ -117,11 +117,11 @@ export function ResumePage({ onProjectSelect }: ResumePageProps) {
   };
 
   return (
-    <main className="pt-20 pb-20 md:pb-20 px-6">
+    <main className="pt-32 pb-20 px-6">
       <div className="max-w-4xl mx-auto" id="resume-content">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">{t('resume.name')}</h1>
+          <h1 className="font-display text-5xl lg:text-7xl mb-4">{t('resume.name')}</h1>
           <p className="text-xl text-muted-foreground mb-6">{t('resume.jobTitle')}</p>
           
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
@@ -145,7 +145,7 @@ export function ResumePage({ onProjectSelect }: ResumePageProps) {
           <div className="lg:col-span-2 space-y-12">
             {/* Experience */}
             <section>
-              <h2 className="text-2xl font-semibold mb-6">{t('resume.experienceTitle')}</h2>
+              <h2 className="font-display text-3xl mb-6">{t('resume.experienceTitle')}</h2>
               
               <div className="space-y-8">
                 <div className="border-l-2 border-border pl-6 relative">
@@ -387,7 +387,7 @@ export function ResumePage({ onProjectSelect }: ResumePageProps) {
 
             {/* Education */}
             <section>
-              <h2 className="text-2xl font-semibold mb-6">{t('resume.educationTitle')}</h2>
+              <h2 className="font-display text-3xl mb-6">{t('resume.educationTitle')}</h2>
               
               <div className="border-l-2 border-border pl-6 relative">
                 <div className="absolute -left-2 top-0 w-3 h-3 bg-primary rounded-full"></div>
@@ -410,7 +410,7 @@ export function ResumePage({ onProjectSelect }: ResumePageProps) {
 
             {/* Projects */}
             <section className="hidden">
-              <h2 className="text-2xl font-semibold mb-6">{t('resume.keyProjectsTitle')}</h2>
+              <h2 className="font-display text-3xl mb-6">{t('resume.keyProjectsTitle')}</h2>
               
               <div className="space-y-6">
                 <div className="border border-border rounded-lg p-6">
@@ -450,7 +450,7 @@ export function ResumePage({ onProjectSelect }: ResumePageProps) {
           <div className="space-y-8">
             {/* Skills */}
             <section>
-              <h2 className="text-xl font-semibold mb-4">{t('resume.coreSkills')}</h2>
+              <h2 className="font-display text-2xl mb-4">{t('resume.coreSkills')}</h2>
               <div className="space-y-4">
                 <div>
                   <h3 className="text-sm font-medium mb-2 text-muted-foreground">{t('resume.skills.designPrototyping')}</h3>
@@ -537,7 +537,7 @@ export function ResumePage({ onProjectSelect }: ResumePageProps) {
 
             {/* Languages */}
             <section>
-              <h2 className="text-xl font-semibold mb-4">{t('resume.languagesTitle')}</h2>
+              <h2 className="font-display text-2xl mb-4">{t('resume.languagesTitle')}</h2>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span>{t('resume.language.german')}</span>
