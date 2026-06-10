@@ -2,7 +2,7 @@ import { useRef, useLayoutEffect } from 'react';
 import { projectsData } from '../data/projectsData';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { ParticleField } from './fx/ParticleField';
+import { TopoLines } from './fx/TopoLines';
 import { SplitWords } from './fx/SplitWords';
 import { FadeIn } from './fx/FadeIn';
 import { ArrowDown } from 'lucide-react';
@@ -26,7 +26,7 @@ export function HomePage({ onProjectSelect }: HomePageProps) {
     ...projectsData.filter(p => p.id !== 'mobile-job-search-app')
   ].filter(Boolean) as typeof projectsData;
 
-  // Horizontal scroll gallery (desktop only)
+  // Horizontal scroll gallery (desktop only) — robust pinning
   useLayoutEffect(() => {
     const section = gallerySectionRef.current;
     const track = trackRef.current;
@@ -35,7 +35,7 @@ export function HomePage({ onProjectSelect }: HomePageProps) {
     const mm = gsap.matchMedia();
 
     mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
-      const getScrollAmount = () => track.scrollWidth - window.innerWidth;
+      const getScrollAmount = () => Math.max(0, track.scrollWidth - window.innerWidth);
 
       const tween = gsap.to(track, {
         x: () => -getScrollAmount(),
@@ -51,7 +51,14 @@ export function HomePage({ onProjectSelect }: HomePageProps) {
         },
       });
 
+      // Recompute once images/fonts settle so cards never get clipped
+      const refresh = () => ScrollTrigger.refresh();
+      const t1 = setTimeout(refresh, 350);
+      window.addEventListener('load', refresh);
+
       return () => {
+        clearTimeout(t1);
+        window.removeEventListener('load', refresh);
         tween.scrollTrigger?.kill();
         tween.kill();
       };
@@ -64,7 +71,7 @@ export function HomePage({ onProjectSelect }: HomePageProps) {
     <main className="pt-0">
       {/* ── Hero ── */}
       <section className="min-h-screen flex flex-col justify-center relative px-6 overflow-hidden">
-        <ParticleField />
+        <TopoLines />
 
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <FadeIn trigger="mount" delay={0.4} y={20}>
@@ -86,10 +93,10 @@ export function HomePage({ onProjectSelect }: HomePageProps) {
 
           <SplitWords
             as="p"
-            className="text-2xl sm:text-3xl lg:text-5xl text-foreground/90 tracking-tight mb-8"
+            className="font-display text-2xl sm:text-3xl lg:text-5xl text-foreground/90 tracking-tight mb-8"
             delay={1.1}
             stagger={0.1}
-            italicWords={[1]}
+            accentWords={[1]}
           >
             {t('hero.title')}
           </SplitWords>
@@ -119,7 +126,7 @@ export function HomePage({ onProjectSelect }: HomePageProps) {
           {/* Intro panel */}
           <div className="flex-shrink-0 lg:w-[45vw] lg:h-full flex items-center px-6 lg:px-20">
             <div>
-              <FadeIn>
+              <FadeIn trigger="mount">
                 <p className="text-sm uppercase tracking-[0.25em] text-primary mb-4">
                   {t('home.selectedWork')}
                 </p>
@@ -133,47 +140,45 @@ export function HomePage({ onProjectSelect }: HomePageProps) {
             </div>
           </div>
 
-          {/* Project cards */}
+          {/* Project cards — no scroll-triggered fade (would flicker inside the pinned track) */}
           {reorderedProjects.map((project, index) => (
             <div
               key={project.id}
               className="flex-shrink-0 px-6 lg:px-10 lg:w-[60vw] xl:w-[52vw]"
             >
-              <FadeIn delay={index === 0 ? 0 : 0.1}>
-                <button
-                  onClick={() => onProjectSelect(project.id)}
-                  data-cursor="view"
-                  className="group block w-full text-left"
-                >
-                  <div className="relative aspect-[16/10] bg-muted rounded-2xl overflow-hidden mb-6">
-                    <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                      {typeof project.imageUrl === 'string' ? (
-                        <ImageWithFallback
-                          src={project.imageUrl}
-                          alt={project.imageAlt[language]}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full">{project.imageUrl()}</div>
-                      )}
-                    </div>
-                    <span className="absolute top-5 left-5 text-xs font-medium uppercase tracking-[0.2em] bg-background/80 backdrop-blur-sm rounded-full px-3 py-1.5">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
+              <button
+                onClick={() => onProjectSelect(project.id)}
+                data-cursor="view"
+                className="group block w-full text-left"
+              >
+                <div className="relative aspect-[16/10] bg-muted rounded-2xl overflow-hidden mb-6">
+                  <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+                    {typeof project.imageUrl === 'string' ? (
+                      <ImageWithFallback
+                        src={project.imageUrl}
+                        alt={project.imageAlt[language]}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full">{project.imageUrl()}</div>
+                    )}
                   </div>
-                  <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="font-display text-2xl lg:text-4xl tracking-tight group-hover:text-primary transition-colors duration-300">
-                      {project.title[language]}
-                    </h3>
-                    <span className="hidden sm:block text-sm text-muted-foreground whitespace-nowrap">
-                      {t('project.seeMore')} →
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground mt-2 line-clamp-2 max-w-xl text-sm lg:text-base">
-                    {project.goal[language]}
-                  </p>
-                </button>
-              </FadeIn>
+                  <span className="absolute top-5 left-5 text-xs font-medium uppercase tracking-[0.2em] bg-background/80 backdrop-blur-sm rounded-full px-3 py-1.5">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-display text-2xl lg:text-4xl tracking-tight group-hover:text-primary transition-colors duration-300">
+                    {project.title[language]}
+                  </h3>
+                  <span className="hidden sm:block text-sm text-muted-foreground whitespace-nowrap">
+                    {t('project.seeMore')} →
+                  </span>
+                </div>
+                <p className="text-muted-foreground mt-2 line-clamp-2 max-w-xl text-sm lg:text-base">
+                  {project.goal[language]}
+                </p>
+              </button>
             </div>
           ))}
 

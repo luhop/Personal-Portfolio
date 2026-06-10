@@ -13,8 +13,8 @@ interface SplitWordsProps {
   duration?: number;
   /** 'mount' animates immediately, 'scroll' animates when scrolled into view */
   trigger?: 'mount' | 'scroll';
-  /** Render some words in italic display serif: pass word indices */
-  italicWords?: number[];
+  /** Render some words in the accent (primary) colour: pass word indices */
+  accentWords?: number[];
 }
 
 export function SplitWords({
@@ -25,7 +25,7 @@ export function SplitWords({
   stagger = 0.06,
   duration = 0.9,
   trigger = 'mount',
-  italicWords = [],
+  accentWords = [],
 }: SplitWordsProps) {
   const ref = useRef<HTMLElement>(null);
 
@@ -66,7 +66,7 @@ export function SplitWords({
     <Tag ref={ref} className={className} aria-label={children}>
       {words.map((word, i) => (
         <span key={i} aria-hidden="true">
-          <span className={`reveal-word ${italicWords.includes(i) ? 'font-display italic' : ''}`}>
+          <span className={`reveal-word ${accentWords.includes(i) ? 'text-primary' : ''}`}>
             <span>{word}</span>
           </span>
           {i < words.length - 1 ? ' ' : ''}

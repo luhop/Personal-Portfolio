@@ -9,87 +9,23 @@ interface ResumePageProps {
 }
 
 export function ResumePage({ onProjectSelect }: ResumePageProps) {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   
-  // PDF Download Handler using browser's print dialog
-  const handleDownloadPDF = async () => {
+  // PDF Download Handler — print styles live in globals.css (@media print)
+  const handleDownloadPDF = () => {
     if (isGeneratingPDF) return;
-    
     setIsGeneratingPDF(true);
-    
-    try {
-      // Add print-specific styles
-      const style = document.createElement('style');
-      style.id = 'print-styles';
-      style.textContent = `
-        @media print {
-          @page {
-            size: A4;
-            margin: 15mm;
-          }
-          
-          body * {
-            visibility: hidden;
-          }
-          
-          #resume-content,
-          #resume-content * {
-            visibility: visible;
-          }
-          
-          #resume-content {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-          }
-          
-          /* Hide download button in print */
-          #pdf-download-section {
-            display: none !important;
-          }
-          
-          /* Ensure proper page breaks */
-          .border-l-2 {
-            page-break-inside: avoid;
-          }
-          
-          h2 {
-            page-break-after: avoid;
-          }
-          
-          /* Ensure colors print correctly */
-          * {
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-            color-adjust: exact !important;
-          }
-        }
-      `;
-      document.head.appendChild(style);
-      
-      // Trigger print dialog
-      window.print();
-      
-      // Remove print styles after a short delay
-      setTimeout(() => {
-        const printStyle = document.getElementById('print-styles');
-        if (printStyle) {
-          printStyle.remove();
-        }
-      }, 1000);
-      
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-      alert(language === 'de' 
-        ? 'Fehler beim Erstellen des PDFs. Bitte versuchen Sie es erneut.' 
-        : 'Error generating PDF. Please try again.');
-    } finally {
-      setIsGeneratingPDF(false);
-    }
+    // Defer so the button label updates before the (blocking) print dialog opens
+    setTimeout(() => {
+      try {
+        window.print();
+      } finally {
+        setIsGeneratingPDF(false);
+      }
+    }, 50);
   };
-  
+
   // Map resume tasks to relevant projects
   const taskProjects = {
     'product-development': [

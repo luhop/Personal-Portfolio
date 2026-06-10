@@ -33,6 +33,130 @@ export interface Project {
 
 export const projectsData: Project[] = [
   {
+    id: 'ai-design-system',
+    title: {
+      en: "AI-Native Design System",
+      de: "KI-natives Design-System"
+    },
+    context: {
+      en: "Currently building a scalable, code-first design system for my new employer — uniting design tokens, a React component library, and AI-assisted workflows that let the team move from idea to shipped UI faster.",
+      de: "Ich baue aktuell ein skalierbares, code-first Design-System für meinen neuen Arbeitgeber — es vereint Design-Tokens, eine React-Komponentenbibliothek und KI-gestützte Workflows, mit denen das Team schneller von der Idee zur fertigen UI kommt."
+    },
+    goal: {
+      en: "Establish one source of truth that bridges design and engineering, so every product ships consistent, accessible interfaces — accelerated by AI tooling baked directly into the workflow.",
+      de: "Eine zentrale Quelle der Wahrheit schaffen, die Design und Engineering verbindet, damit jedes Produkt konsistente, barrierefreie Interfaces liefert — beschleunigt durch KI-Tooling direkt im Workflow."
+    },
+    description: {
+      en: "An ongoing, code-first design system that pairs semantic tokens and a React component library with AI-assisted generation — closing the gap between Figma and production for an entire product organisation.",
+      de: "Ein laufendes, code-first Design-System, das semantische Tokens und eine React-Komponentenbibliothek mit KI-gestützter Generierung verbindet — und so die Lücke zwischen Figma und Produktion für eine ganze Produktorganisation schließt."
+    },
+    problem: {
+      en: "A growing product org with no shared design foundation: every team rebuilt buttons, forms and layouts their own way. Design and engineering spoke different languages, handoffs were slow, and accessibility was an afterthought.",
+      de: "Eine wachsende Produktorganisation ohne gemeinsame Design-Grundlage: jedes Team baute Buttons, Formulare und Layouts auf eigene Weise. Design und Engineering sprachen verschiedene Sprachen, Handoffs waren langsam und Barrierefreiheit kam zu kurz."
+    },
+    solution: {
+      en: "A token-driven system where Figma variables map 1:1 to coded components, with AI assistants that scaffold new components and translate designs into production-ready code — so consistency and speed come for free.",
+      de: "Ein token-getriebenes System, in dem Figma-Variablen 1:1 auf gecodete Komponenten abgebildet werden, mit KI-Assistenten, die neue Komponenten erzeugen und Designs in produktionsreifen Code übersetzen — Konsistenz und Tempo gibt es so gratis dazu."
+    },
+    myRole: ["Design System Lead", "Architecture", "Component Engineering", "AI Tooling"],
+    tools: ["Figma", "React", "Design Tokens", "Claude Code", "TypeScript"],
+    imageUrl: "https://images.unsplash.com/photo-1737918543099-dfa8ec2e3909?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXNpZ24lMjBzeXN0ZW0lMjBjb21wb25lbnRzfGVufDF8fHx8MTc1OTAxMDQ5M3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    imageAlt: {
+      en: "Design system component library",
+      de: "Design-System-Komponentenbibliothek"
+    },
+    metrics: [
+      {
+        label: { en: "Status", de: "Status" },
+        value: "2026",
+        description: {
+          en: "In active development at my current role",
+          de: "In aktiver Entwicklung in meiner aktuellen Rolle"
+        }
+      },
+      {
+        label: { en: "Token-Driven", de: "Token-getrieben" },
+        value: "100%",
+        description: {
+          en: "Every component themed entirely through semantic design tokens",
+          de: "Jede Komponente vollständig über semantische Design-Tokens gethemt"
+        }
+      },
+      {
+        label: { en: "Components Shipped", de: "Komponenten ausgeliefert" },
+        value: "30+",
+        description: {
+          en: "Accessible, documented components in the live library",
+          de: "Barrierefreie, dokumentierte Komponenten in der Live-Bibliothek"
+        }
+      },
+      {
+        label: { en: "AI-Assisted", de: "KI-gestützt" },
+        value: "100%",
+        description: {
+          en: "New components scaffolded and reviewed with AI in the loop",
+          de: "Neue Komponenten mit KI im Loop erstellt und reviewt"
+        }
+      }
+    ],
+    timeline: [
+      {
+        id: 'foundations',
+        title: {
+          en: 'Tokens & Foundations',
+          de: 'Tokens & Grundlagen'
+        },
+        description: {
+          en: 'Defined the semantic token layer — colour, type, spacing, elevation — as a single source shared between Figma variables and the codebase, with light/dark and accessibility built in from day one.',
+          de: 'Definition der semantischen Token-Ebene — Farbe, Typografie, Spacing, Elevation — als zentrale Quelle, geteilt zwischen Figma-Variablen und Codebasis, mit Light/Dark und Barrierefreiheit von Tag eins an.'
+        },
+        challenge: {
+          en: 'Designing a token structure flexible enough for many products yet strict enough to stay consistent',
+          de: 'Eine Token-Struktur entwerfen, flexibel genug für viele Produkte und doch streng genug für Konsistenz'
+        },
+        imageUrl: 'https://images.unsplash.com/photo-1546437593-3d0258c28037?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aXJlZnJhbWUlMjBza2V0Y2hpbmclMjBkZXNpZ258ZW58MXx8fHwxNzU5MDg5NTU3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+        imageAlt: { en: 'Design token foundations', de: 'Design-Token-Grundlagen' },
+        date: { en: 'Phase 1', de: 'Phase 1' }
+      },
+      {
+        id: 'component-library',
+        title: {
+          en: 'Component Library in Code',
+          de: 'Komponentenbibliothek im Code'
+        },
+        description: {
+          en: 'Built the React component library on top of the tokens — accessible primitives with documented states and variants, mirrored 1:1 by their Figma counterparts so design and code never drift apart.',
+          de: 'Aufbau der React-Komponentenbibliothek auf Basis der Tokens — barrierefreie Primitives mit dokumentierten States und Varianten, 1:1 gespiegelt von ihren Figma-Pendants, damit Design und Code nie auseinanderlaufen.'
+        },
+        challenge: {
+          en: 'Keeping design and coded components in perfect sync as both evolve',
+          de: 'Design- und Code-Komponenten perfekt synchron halten, während sich beide weiterentwickeln'
+        },
+        imageUrl: 'https://images.unsplash.com/photo-1758611974287-8ca7147860a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3ZWIlMjBkZXNpZ24lMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzU5OTE5Nzc0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+        imageAlt: { en: 'Component library development', de: 'Komponenten-Bibliotheks-Entwicklung' },
+        date: { en: 'Phase 2', de: 'Phase 2' }
+      },
+      {
+        id: 'ai-workflows',
+        title: {
+          en: 'AI-Assisted Workflows',
+          de: 'KI-gestützte Workflows'
+        },
+        description: {
+          en: 'Integrated AI tooling into the system: generating new components from specs, translating Figma designs into token-based code, and reviewing pull requests against the system\'s rules — multiplying the team\'s output.',
+          de: 'Integration von KI-Tooling ins System: Generierung neuer Komponenten aus Specs, Übersetzung von Figma-Designs in token-basierten Code und Review von Pull Requests gegen die System-Regeln — das vervielfacht den Output des Teams.'
+        },
+        challenge: {
+          en: 'Embedding AI so it accelerates the team without compromising quality or consistency',
+          de: 'KI so einbetten, dass sie das Team beschleunigt, ohne Qualität oder Konsistenz zu opfern'
+        },
+        imageUrl: 'https://images.unsplash.com/photo-1748609160056-7b95f30041f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmFseXRpY3MlMjBkYXNoYm9hcmQlMjBjaGFydHN8ZW58MXx8fHwxNzU4OTk2MDg2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+        imageAlt: { en: 'AI-assisted workflow', de: 'KI-gestützter Workflow' },
+        date: { en: 'Phase 3', de: 'Phase 3' }
+      }
+    ]
+  },
+  {
     id: 'bewerbung2go-mobile-app',
     title: {
       en: "Mobile App for bewerbung2go",

@@ -83,19 +83,19 @@ export const translations = {
     
     // Job Positions
     'resume.position.productOwner': 'Product Owner',
-    'resume.position.productManager': 'Produktmanager',
-    'resume.position.productDesigner': 'Produktdesigner',
-    'resume.position.internProductManagement': 'Praktikant Produktmanagement',
+    'resume.position.productManager': 'Product Manager',
+    'resume.position.productDesigner': 'Product Designer',
+    'resume.position.internProductManagement': 'Product Management Intern',
     'resume.company': 'Jobware GmbH',
     'resume.company.alber': 'Alber GmbH',
     'resume.date.productOwner': '2023 - Present',
     'resume.date.productManager': '2022 - Present',
     'resume.date.productDesigner': '2024 - Present',
     'resume.date.internAlber': 'March 2022 - May 2022',
-    
+
     // Job Tasks
-    'resume.task.productDevelopment': 'Entwicklung neuer Produkt-Konzepte von der Konzeptionierung, bis zur Markteinführung',
-    'resume.task.mobileDesign': 'Designed and prototyped mobile applications with focus on user experience',
+    'resume.task.productDevelopment': 'Developed new product concepts from initial idea through to market launch',
+    'resume.task.mobileDesign': 'Designed and prototyped mobile applications with a focus on user experience',
     'resume.task.teamCoordination': 'Coordinated cross-functional teams using Agile methodologies',
     'resume.task.userResearch': 'Conducted user research and usability testing to drive product decisions',
     'resume.task.designSystems': 'Created comprehensive design systems and component libraries',
@@ -118,13 +118,13 @@ export const translations = {
     'resume.project.mobileAppTesting': 'Mobile App User Testing',
     
     // Education
-    'resume.education.bachelor': 'Bachelor in Wirtschaftswissenschaften',
+    'resume.education.bachelor': 'B.Sc. in Economics & Business Administration',
     'resume.education.bachelordDate': '2018 - 2023',
-    'resume.education.university': 'Universität Paderborn',
-    'resume.education.abitur': 'Abitur',
+    'resume.education.university': 'Paderborn University',
+    'resume.education.abitur': 'Abitur (German High School Diploma)',
     'resume.education.abiturDate': '2018',
     'resume.education.school': 'Städtisches Gymnasium Barntrup',
-    
+
     // Key Projects Section
     'resume.keyProject1.title': 'Customer Portal Redesign',
     'resume.keyProject1.description': 'Complete redesign of the Jobware customer portal, improving user satisfaction by 40% and reducing support tickets by 60%.',
@@ -159,8 +159,8 @@ export const translations = {
     'resume.skill.copilot': 'Copilot',
     'resume.skill.firebaseStudio': 'Firebase Studio',
     'resume.skill.mobileUI': 'Mobile UI',
-    'resume.skill.accessibility': 'Konzeptionierung',
-    'resume.skill.responsiveDesign': 'Prototyping',
+    'resume.skill.accessibility': 'Accessibility',
+    'resume.skill.responsiveDesign': 'Responsive Design',
     'resume.skill.userTesting': 'User Testing',
     'resume.skill.projectPlanning': 'Project Planning & Control',
     'resume.skill.scrum': 'Scrum',
@@ -375,8 +375,8 @@ export const translations = {
     'resume.skill.copilot': 'Copilot',
     'resume.skill.firebaseStudio': 'Firebase Studio',
     'resume.skill.mobileUI': 'Mobile UI',
-    'resume.skill.accessibility': 'Konzeptionierung',
-    'resume.skill.responsiveDesign': 'Prototyping',
+    'resume.skill.accessibility': 'Barrierefreiheit',
+    'resume.skill.responsiveDesign': 'Responsive Design',
     'resume.skill.userTesting': 'Nutzertests',
     'resume.skill.projectPlanning': 'Projektplanung & Kontrolle',
     'resume.skill.scrum': 'Scrum',

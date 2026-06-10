@@ -25,7 +25,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-t border-border/20">
+    <footer data-mobile-footer className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-t border-border/20">
       <div className="px-6 py-4 flex items-center justify-center gap-2">
         {/* Language toggle */}
         <DropdownMenu>

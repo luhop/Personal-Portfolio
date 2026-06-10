@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
@@ -86,7 +86,7 @@
 
 @theme inline {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -148,25 +148,50 @@ html {
   font-size: var(--font-size);
 }
 
+/* ── Minimal scrollbar — barely visible, appears on hover ── */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+html:hover {
+  scrollbar-color: color-mix(in oklch, var(--muted-foreground) 35%, transparent) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+}
+html:hover ::-webkit-scrollbar-thumb {
+  background: color-mix(in oklch, var(--muted-foreground) 30%, transparent);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklch, var(--muted-foreground) 60%, transparent);
+}
+
 /* ── Lenis smooth scroll ── */
 html.lenis,
 html.lenis body {
   height: auto;
 }
-
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
-
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
-
 .lenis.lenis-stopped {
   overflow: hidden;
 }
 
-/* ── Custom cursor ── */
+/* ── Custom cursor (small digital arrow) ── */
 @media (pointer: fine) {
   .custom-cursor-active,
   .custom-cursor-active a,
@@ -176,54 +201,50 @@ html.lenis body {
   }
 }
 
-.cursor-dot {
+.custom-cursor {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 9999;
   pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: var(--foreground);
-  color: var(--background);
-  width: 12px;
-  height: 12px;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    background-color 0.3s ease;
+  will-change: transform;
 }
 
-.cursor-dot[data-variant="link"] {
-  width: 40px;
-  height: 40px;
-  background: var(--primary);
+.custom-cursor__arrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--foreground);
+  transition: transform 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.2s ease;
 }
 
-.cursor-dot[data-variant="view"] {
-  width: 80px;
-  height: 80px;
-  background: var(--primary);
+.custom-cursor[data-variant="view"] .custom-cursor__arrow {
+  transform: scale(0.85);
+  color: var(--primary);
 }
 
-.cursor-dot .cursor-label {
-  font-size: 11px;
+.custom-cursor__label {
+  position: absolute;
+  left: 17px;
+  top: 14px;
+  font-family: var(--font-sans);
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--primary-foreground);
+  letter-spacing: 0.02em;
+  color: var(--primary);
+  white-space: nowrap;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.cursor-dot[data-variant="view"] .cursor-label {
+.custom-cursor[data-variant="view"] .custom-cursor__label {
   opacity: 1;
+  transform: translateX(0);
 }
 
 @media (pointer: coarse) {
-  .cursor-dot {
+  .custom-cursor {
     display: none;
   }
 }
@@ -231,13 +252,8 @@ html.lenis body {
 /* ── Editorial type helpers ── */
 .font-display {
   font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-}
-
-.text-stroke {
-  -webkit-text-stroke: 1px var(--foreground);
-  -webkit-text-fill-color: transparent;
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 /* Word-reveal mask */
@@ -246,7 +262,6 @@ html.lenis body {
   overflow: hidden;
   vertical-align: bottom;
 }
-
 .reveal-word > span {
   display: inline-block;
   transform: translateY(110%);
@@ -258,7 +273,6 @@ html.lenis body {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-
 .animate-marquee {
   animation: marquee 30s linear infinite;
 }
@@ -268,17 +282,127 @@ html.lenis body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
-/* Reduced motion: kill the fancy stuff */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .reveal-word > span {
     transform: none !important;
   }
   .animate-marquee {
     animation: none;
+  }
+}
+
+/* ───────────────────────────────────────────────
+   PRINT — Resume PDF: plain sans, white bg, ≤2 pages
+   ─────────────────────────────────────────────── */
+@media print {
+  @page {
+    size: A4;
+    margin: 11mm 12mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  /* Hide everything that isn't the resume */
+  header,
+  .custom-cursor,
+  [data-site-footer],
+  [data-mobile-footer],
+  #pdf-download-section {
+    display: none !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  /* Force plain sans everywhere, black ink */
+  #resume-content,
+  #resume-content * {
+    font-family: 'Inter', Arial, sans-serif !important;
+    color: #111111 !important;
+    letter-spacing: normal !important;
+  }
+  #resume-content .text-muted-foreground {
+    color: #555555 !important;
+  }
+
+  /* Two-column compact layout */
+  #resume-content > .grid {
+    display: grid !important;
+    grid-template-columns: 1.75fr 1fr !important;
+    gap: 22px !important;
+    align-items: start !important;
+  }
+
+  /* Compact typography */
+  #resume-content h1 {
+    font-size: 21pt !important;
+    font-weight: 700 !important;
+    margin: 0 0 2pt !important;
+    line-height: 1.1 !important;
+  }
+  #resume-content h2 {
+    font-size: 11pt !important;
+    font-weight: 700 !important;
+    margin: 0 0 6pt !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em !important;
+  }
+  #resume-content h3 {
+    font-size: 9.5pt !important;
+    font-weight: 600 !important;
+  }
+  #resume-content p,
+  #resume-content li,
+  #resume-content span,
+  #resume-content div {
+    font-size: 8.5pt !important;
+    line-height: 1.32 !important;
+  }
+
+  /* Tighten vertical rhythm */
+  #resume-content .text-center.mb-12 { margin-bottom: 12pt !important; }
+  #resume-content .space-y-12 > * + * { margin-top: 11pt !important; }
+  #resume-content .space-y-8 > * + * { margin-top: 9pt !important; }
+  #resume-content .space-y-4 > * + * { margin-top: 4pt !important; }
+  #resume-content .space-y-3 > * + * { margin-top: 3pt !important; }
+  #resume-content .mb-6 { margin-bottom: 6pt !important; }
+  #resume-content .mb-4 { margin-bottom: 4pt !important; }
+  #resume-content .mb-3 { margin-bottom: 3pt !important; }
+  #resume-content .mb-2 { margin-bottom: 2pt !important; }
+  #resume-content .pl-6 { padding-left: 12pt !important; }
+  #resume-content .gap-6 { gap: 8pt !important; }
+
+  /* Neutral accents in print */
+  #resume-content .bg-primary {
+    background: #111111 !important;
+  }
+  #resume-content [data-slot="badge"],
+  #resume-content .border {
+    border-color: #cccccc !important;
+    padding: 1pt 5pt !important;
+    background: transparent !important;
+  }
+
+  /* Avoid awkward breaks */
+  #resume-content section,
+  #resume-content .border-l-2 {
+    page-break-inside: avoid;
+  }
+  #resume-content h2 {
+    page-break-after: avoid;
   }
 }

@@ -13,7 +13,7 @@ export function SiteFooter({ onNavigate }: SiteFooterProps) {
   const marqueeText = `${t('about.cta.title')} — `;
 
   return (
-    <footer className="relative border-t border-border/40 overflow-hidden pb-20 md:pb-0">
+    <footer data-site-footer className="relative border-t border-border/40 overflow-hidden pb-20 md:pb-0">
       {/* Marquee */}
       <div className="py-10 lg:py-16 overflow-hidden whitespace-nowrap select-none">
         <div className="animate-marquee inline-block">
