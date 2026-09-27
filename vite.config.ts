@@ -4,6 +4,11 @@ import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 
 export default defineConfig({
+  // Relative Asset-Pfade: dieselbe Build-Ausgabe funktioniert auf dem
+  // GitHub-Pages-Subpfad (luhop.github.io/Personal-Portfolio/) UND spaeter
+  // auf einer Custom-Domain am Root, ohne Umkonfiguration. Moeglich, weil
+  // das Routing Hash-basiert ist (kein Server-seitiges Deep-Routing).
+  base: './',
   plugins: [react(), tailwindcss()],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],

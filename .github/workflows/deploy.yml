@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+# Bei jedem Push auf main automatisch bauen und deployen.
+# workflow_dispatch erlaubt zusaetzlich manuelles Ausloesen im Actions-Tab.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Berechtigungen, die die Pages-Actions brauchen:
+# - contents: read  -> Code auschecken
+# - pages: write    -> auf Pages deployen
+# - id-token: write -> OIDC-Token fuer den vertrauenswuerdigen Deploy
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Immer nur ein Deploy gleichzeitig; laufende Deploys NICHT abbrechen.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Vite schreibt den Build laut vite.config.ts nach build/ (nicht dist/)
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
